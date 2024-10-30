@@ -1,5 +1,4 @@
 package steps.reqres;
-
 import constants.GlobalVars;
 import servicehelpers.Post;
 import io.cucumber.datatable.DataTable;
@@ -9,8 +8,8 @@ import lombok.extern.java.Log;
 import settergetter.ThreadSafety;
 import java.util.HashMap;
 import java.util.List;
-
 import static org.hamcrest.Matchers.*;
+
 
 @Log
 public class PostSteps {
