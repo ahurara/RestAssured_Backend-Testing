@@ -1,5 +1,6 @@
 package steps.reqres;
 import constants.GlobalVars;
+import io.restassured.path.json.JsonPath;
 import servicehelpers.Post;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -31,7 +32,7 @@ public class PostSteps {
         ThreadSafety.setStatusCode(ThreadSafety.getResponse().getStatusCode());
     }
 
-    @And("^Print (.*)$")
+    @And("Print {string}")
     public void printValue(String key) {
         log.info(key + " is " + ThreadSafety.getResponse().jsonPath().getString(key));
         // or
@@ -39,6 +40,24 @@ public class PostSteps {
         // JsonPath jsonPath = res.jsonPath();
         // log.info(jsonPath.getString(key));
     }
+
+
+
+    @And("Print all fields and log if the response is complete or not$")
+    public void printAllFields() {
+
+        System.out.printf(ThreadSafety.getResponse().body().asString());
+        JsonPath jsonPath = ThreadSafety.getResponse().jsonPath();
+        if(jsonPath.get("name") != null && jsonPath.get("job") != null && jsonPath.get("id") != null && jsonPath.get("createdAt") != null ) {
+            System.out.println("\nResponse it correct and not null");
+        }
+        else{
+            System.out.println("Not a complete response");
+        }
+
+
+    }
+
 
     @When("^Add user from '(.*)' for '(.*)'$")
     public void addUserFromJsonFile(String filePath, String endpoint) {
